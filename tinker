@@ -25,6 +25,7 @@ Sistema de tokens:
     -> Monto inicial
     -> Sistema de Tokens
         -> Responder con mejor respuesta                    +++
+        -> crear una pregunta                               ---
         -> Recibir votos negativos en respuesta             ---
         -> Top 10 del mes                                   +++
         -> Subir información valiosa (pdf, audiovisuales)   +++

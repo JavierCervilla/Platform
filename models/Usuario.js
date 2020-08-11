@@ -45,7 +45,8 @@ const DatosPersonales = new mongoose.Schema({
     },
     telefono: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     edad: {
         type: Number,
@@ -67,7 +68,8 @@ const DatosPersonales = new mongoose.Schema({
 **      -> Edad
 **      -> Password
 ** -> Nombre de usuario
-** -> Tipo de usuario: ["1º Bachillerato", "2º Bachillerato", "Universitario", "profesor", "partner"]
+** -> Tipo de usuario: 
+**   ["1º Bachillerato", "2º Bachillerato", "Universitario", "profesor", "partner"]
 ** -> Nombre de la escuela
 ** -> Skills
 ** -> Wallet
@@ -90,16 +92,16 @@ const UsuarioSchema = new mongoose.Schema({
     },
     tipo_usuario: {
         type: String,
-        enum: ["1º Bachillerato", "2º Bachillerato", "Universitario", "profesor", "partner"]
+        enum: ["1º Bachillerato", "2º Bachillerato", "Universitario", "profesor", "partner", "admin"]
     },
     school_name: {
         type: [String]
     },
-    skills: {
+    /*skills: {
         //TODO: Crear modelo de Skills
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Skills'
-    },
+    },*/
     wallet: {
         //TODO: Revisar modelo del wallet
         type: mongoose.Schema.Types.ObjectId,

@@ -7,21 +7,23 @@ const Adress = new mongoose.Schema({
     address: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        unmutable: true
     }
 });
 
 /*
 **   ->TRANSACCIÓN:
-**      ->importe.
+**      ->importe de la operacion.
 **      ->origen: cartera de origen.
 **      ->destino: cartera de destino.
 **      ->concepto: concepto de transaccion.
 **      ->created: fecha de creacion.
 **      ->closed: fecha de cierre de la transaccion.
 **      ->status: estado de la transaccion.
-**      
 */
+
+// TODO: VER SI ES UTIL CREAR MODELO DE TOKEN PARA PODER RASTREARLO.
 
 const Transaccion = new mongoose.Schema({
     importe: {
@@ -31,11 +33,11 @@ const Transaccion = new mongoose.Schema({
         max: 10
     },
     origen: {
-        type: Address,
+        type: Adress,
         required: true
     },
     destino: {
-        type: Address,
+        type: Adress,
         required: true
     },
     concepto: {
@@ -44,7 +46,7 @@ const Transaccion = new mongoose.Schema({
     },
     created: {
         type: Date,
-        default: Date.now 
+        default: Date.now
     },
     closed: {
         type: Date,
@@ -68,13 +70,12 @@ const Transaccion = new mongoose.Schema({
 **      ->concepto: concepto de transaccion.
 **      ->created: fecha de creacion.
 **      ->closed: fecha de cierre de la transaccion.
-**      ->status: estado de la transaccion.
-**      
+**      ->status: estado de la transaccion. 
 */
 
 const WalletSchema = new mongoose.Schema({
     address: {
-        type: Address
+        type: Adress
     },
     cantidad: {
         type: Number,
@@ -91,7 +92,6 @@ const WalletSchema = new mongoose.Schema({
         type: Date,
         default: Date.now 
     }
-
 });
 
 module.exports = mongoose.model('Wallet', WalletSchema);

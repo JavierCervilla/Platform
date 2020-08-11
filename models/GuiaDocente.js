@@ -36,7 +36,7 @@ const TutorExterno = new mongoose.Schema({
 });
 
 /*
-** ZONA DE INFORMACION
+** ZONA DE INFORMACIÓN
 */
 
 const ZonaInfo = new mongoose.Schema({
