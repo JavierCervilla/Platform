@@ -73,17 +73,26 @@ usuarioController.save = async (req, res) => {
         /*
         ** //FIXME: Ver si es necesario crear un controller para el wallet y llamarlo 
         */
-        user.save(
-            (err) => {
+        await user.save(
+            async (err) => {
                 if (err) {
                     console.error("Error : ", err);
+                    res.status(404).json({
+                        body: {
+                            error: "error al crear usuario"
+                        }
+                    });
                     return;
                 }
-                user.wallet.save(
+                await user.wallet.save(
                     (err) => {
                         if (err) {
-                            console.error("Error : ", err);
-                            return;
+                            console.error("Error wallet : ", err);
+                            res.status(404).json({
+                                body: {
+                                    error: "error al crear cartera"
+                                }
+                            });
                         }
                         console.log("wallet created.")
                 });
@@ -95,9 +104,10 @@ usuarioController.save = async (req, res) => {
                 });
             }
         );
-        res.status(404).json({
+        res.json({
+            msg: "usuario creado correctamente.",
             body: {
-                error: "error al crear usuario"
+                usuario: user
             }
         });
     } catch (err) {
@@ -132,10 +142,10 @@ usuarioController.update = async (req, res) => {
                 if (err) {
                     console.error({error : err});
                 }
-                console.log("usuario: ", user);
+                user.update;
                 return;
-            }
-        )
+            });
+        console.log("usuario: ", user);
         res.json({
             msg: "usuario actualizado correctamente",
             body: {
