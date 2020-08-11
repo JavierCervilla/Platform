@@ -101,14 +101,21 @@ const UsuarioSchema = new mongoose.Schema({
         ref: 'Skills'
     },
     wallet: {
-        //TODO: Crear modelo de wallet
+        //TODO: Revisar modelo del wallet
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Wallet'
     },
     reputacion: {
         type: Reputacion,
+    },
+    created: {
+        type: Date,
+        default: Date.now 
+    },
+    updated: {
+        type: Date,
+        default: Date.now 
     }
-
 });
 
 module.exports = mongoose.model('Usuario', UsuarioSchema);
