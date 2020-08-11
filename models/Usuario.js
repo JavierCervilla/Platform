@@ -86,9 +86,7 @@ const UsuarioSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
-        index : {
-            unique: true
-        }
+        unique: true
     },
     tipo_usuario: {
         type: String,

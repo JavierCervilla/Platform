@@ -18,8 +18,9 @@ router.get("/api/user", (req,res) => {
     usuarioController.list(req, res);
 });
 
-router.post("/user/create", (req,res) => {
+router.post("/api/user/create", (req, res) => {
     usuarioController.save(req, res);
 });
+
 
 module.exports = router

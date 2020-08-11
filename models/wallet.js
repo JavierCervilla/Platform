@@ -33,11 +33,11 @@ const Transaccion = new mongoose.Schema({
         max: 10
     },
     origen: {
-        type: Adress,
+        type: String,
         required: true
     },
     destino: {
-        type: Adress,
+        type: String,
         required: true
     },
     concepto: {

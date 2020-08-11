@@ -11,7 +11,7 @@ const usuarioController = {};
 */
 usuarioController.list = async (req, res) => {
     try {
-        const users = await Usuario.find().lean();
+        const users = await Usuario.find();
         res.json({
             body: {
                 usuarios: users
@@ -62,26 +62,22 @@ usuarioController.show = async (req, res) => {
 **
 */
 
-usuarioController.save = (req, res) => {
+usuarioController.save = async (req, res) => {
     try {
         // TODO: VALIDAR DATA
 
-        const user = new Usuario(req.body);
-        user.wallet = new Wallet(()=>{
-            
-        });
-        user.wallet.save();
+        console.log(req.body);
+        const user = await new Usuario(req.body);
+        user.wallet = await new Wallet();
         user.save();
         res.json({
-            res: 200,
             body: {
                 usuario: user
             }
         });
     } catch (err) {
         console.error(err);
-        res.json({
-            res: 500,
+        res.status(500).json({
             body:{
                 error: err
             }
