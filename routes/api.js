@@ -8,19 +8,22 @@ const router = express.Router();
 // @route  :    /api
 // @desc   :    hello world api
 
-router.get("/api", (req,res) => {
+router.get("/", (req, res) => {
     res.json({
         msg : "hello World"
     });
 });
 
-router.get("/api/user", (req,res) => {
+router.get("/user", (req, res) => {
     usuarioController.list(req, res);
 });
 
-router.post("/api/user/create", (req, res) => {
+router.post("/user/create", (req, res) => {
     usuarioController.save(req, res);
 });
 
+router.post("/user/update", (req, res) => {
+    usuarioController.update(req, res);
+});
 
 module.exports = router

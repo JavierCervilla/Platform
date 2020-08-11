@@ -14,16 +14,17 @@ db();
 
 const app = express();
 
+// body parser
+app.use(express.urlencoded({ extended : false }));
+app.use(express.json());
+
 // routes
 app.use("/", require('./routes/web'));
-app.use(("/api", require('./routes/api')));
+app.use("/api", require('./routes/api'));
 
 //define the port
 const PORT = process.env.PORT || 3000;
 
-// body parser
-app.use(express.urlencoded({ extended : false }));
-app.use(express.json());
 
 //setup morgAN
 if (process.env.NODE_ENV === 'development')

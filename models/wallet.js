@@ -1,18 +1,6 @@
 const mongoose = require('mongoose');
 
 /*
-**  ->ADRESS: String hexadecimal de 32 bits unico que identifica una cartera.
-*/
-const Adress = new mongoose.Schema({
-    address: {
-        type: String,
-        required: true,
-        unique: true,
-        unmutable: true
-    }
-});
-
-/*
 **   ->TRANSACCIÓN:
 **      ->importe de la operacion.
 **      ->origen: cartera de origen.
@@ -60,7 +48,7 @@ const Transaccion = new mongoose.Schema({
 
 /*
 **  WALLET:
-**  -> addres: direccion publica de la cartera.
+**  -> addres: id de la cartera.
 **  -> cantidad: monto de tokens de la cartera.
 **  historial de transacciones:
 **   ->transaccion:
@@ -74,8 +62,10 @@ const Transaccion = new mongoose.Schema({
 */
 
 const WalletSchema = new mongoose.Schema({
-    address: {
-        type: Adress
+    usuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario',
+        unique: true
     },
     cantidad: {
         type: Number,

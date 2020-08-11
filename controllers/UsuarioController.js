@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const Usuario = require('../models/Usuario');
 const Wallet = require('../models/Wallet');
 
+
 const usuarioController = {};
+
 /*
 **  LISTAR USUARIOS.
 **  GET
@@ -58,21 +60,44 @@ usuarioController.show = async (req, res) => {
 **      -> username: String,
 **      -> tipo de usuario
 **      -> school_name
-**      -> 
-**
+**  Ahora mismo crea el usuario, en caso de crearlo correctamente, crea la cartera
 */
 
 usuarioController.save = async (req, res) => {
     try {
         // TODO: VALIDAR DATA
 
-        console.log(req.body);
         const user = await new Usuario(req.body);
         user.wallet = await new Wallet();
-        user.save();
-        res.json({
+        user.wallet.usuario = user._id;
+        /*
+        ** //FIXME: Ver si es necesario crear un controller para el wallet y llamarlo 
+        */
+        user.save(
+            (err) => {
+                if (err) {
+                    console.error("Error : ", err);
+                    return;
+                }
+                user.wallet.save(
+                    (err) => {
+                        if (err) {
+                            console.error("Error : ", err);
+                            return;
+                        }
+                        console.log("wallet created.")
+                });
+                console.log("User created.")
+                res.json({
+                    body: {
+                        usuario: user
+                    }
+                });
+            }
+        );
+        res.status(404).json({
             body: {
-                usuario: user
+                error: "error al crear usuario"
             }
         });
     } catch (err) {
@@ -85,7 +110,76 @@ usuarioController.save = async (req, res) => {
     }
 };
 
+/*
+**  EDITAR USUARIO.
+**  request.:
+**      -> datos_personales
+**      -> 
+*/
 
+usuarioController.update = async (req, res) => {
+    try {
+        const user = await Usuario.findOneAndUpdate(
+            req.params.id,
+            {
+                $set: {
+                    datos_personales: req.body.datos_personales,
+                    school_name: req.body.school_name
+                }
+            },
+            { new: false},
+            (err, user) => {
+                if (err) {
+                    console.error({error : err});
+                }
+                console.log("usuario: ", user);
+                return;
+            }
+        )
+        res.json({
+            msg: "usuario actualizado correctamente",
+            body: {
+                usuario: user
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            msg: "error",
+            body:{
+                error: err
+            }
+        });
+    }
+};
 
+usuarioController.edit = async (req, res) => {
+    try {
+        const user = await Usuario.findOne({_id: req.params.id}, (err, user) => {
+            if (err) {
+                console.log("Error: ", err);
+                res.status(500).json({
+                    msg: "error",
+                    body:{
+                        error: err
+                    }
+                });
+                return;
+            }
+            res.json({
+                usuario: user 
+            });
+            return;
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            msg: "error",
+            body:{
+                error: err
+            }
+        });
+    }
+};
 
 module.exports = usuarioController;
