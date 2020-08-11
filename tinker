@@ -1,0 +1,36 @@
+Curso [Bachillerato 1 , 2]
+    -> asignatura
+        -> Guia Del Docente
+            -> Temas
+                    -> Zona de info
+                        -> descargables
+                        -> audiovisuales
+                        -> lista de academias, tutores, ayudas
+                        -> lecturas
+                    -> foro de dudas
+                        
+                    -> salas de chat
+                    -> Seminarios, Charlas, Conferencias, etc...
+Usuario:
+    -> Datos
+    -> Reputacion
+        -> Rango / Lvl
+        -> Experiencia > Rel. Rango
+        -> Puntuación > Rel. Tokens
+    -> Cartera de tokens
+    -> Arbol de skills
+    -> Username
+    -> Nombre De Escuela
+Sistema de tokens:
+    -> Monto inicial
+    -> Sistema de Tokens
+        -> Responder con mejor respuesta                    +++
+        -> Recibir votos negativos en respuesta             ---
+        -> Top 10 del mes                                   +++
+        -> Subir información valiosa (pdf, audiovisuales)   +++
+        -> Subir SPAM                                       ---
+        -> Impartir clases en sala de chat privado          +++
+        -> Faltar a clase comprometida                      ---
+        -> Solicitar clases                                 ---
+        -> 
+    -> Mercado De Tokens (partners)
