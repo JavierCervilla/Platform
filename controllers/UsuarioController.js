@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Usuario = require('../models/Usuario');
-const Wallet = require('../models/Wallet');
+const walletController = require('../controllers/Walletcontroller');
 
 
 const usuarioController = {};
@@ -39,6 +39,7 @@ usuarioController.show = async (req, res) => {
         const user = await Usuario.findOne({_id : req.params.id }).lean();
         console.log(user);
         res.json({
+            msg: "usuario encontrado.",
             body:{
                 usuario: user
             }
@@ -46,6 +47,7 @@ usuarioController.show = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({
+            msg: "ERROR. Usuario no encontrado.",
             body: {
                 error : err
             }
@@ -68,42 +70,22 @@ usuarioController.save = async (req, res) => {
         // TODO: VALIDAR DATA
 
         const user = await new Usuario(req.body);
-        user.wallet = await new Wallet();
-        user.wallet.usuario = user._id;
-        /*
-        ** //FIXME: Ver si es necesario crear un controller para el wallet y llamarlo 
-        */
         await user.save(
             async (err) => {
                 if (err) {
                     console.error("Error : ", err);
                     res.status(404).json({
+                        msg: "Error. Usuario no creado.",
                         body: {
-                            error: "error al crear usuario"
+                            error: err
                         }
                     });
                     return;
                 }
-                await user.wallet.save(
-                    (err) => {
-                        if (err) {
-                            console.error("Error wallet : ", err);
-                            res.status(404).json({
-                                body: {
-                                    error: "error al crear cartera"
-                                }
-                            });
-                        }
-                        console.log("wallet created.")
-                });
-                console.log("User created.")
-                res.json({
-                    body: {
-                        usuario: user
-                    }
-                });
+                console.log("Usuario creado.");
+                return;
             }
-        );
+            );
         res.json({
             msg: "usuario creado correctamente.",
             body: {
@@ -113,6 +95,7 @@ usuarioController.save = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({
+            msg: "Error. Usuario no creado.",
             body:{
                 error: err
             }

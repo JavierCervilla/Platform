@@ -100,11 +100,6 @@ const UsuarioSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Skills'
     },*/
-    wallet: {
-        //TODO: Revisar modelo del wallet
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Wallet'
-    },
     reputacion: {
         type: Reputacion,
     },
