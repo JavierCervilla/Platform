@@ -1,6 +1,7 @@
 const express = require('express');
 const usuarioController = require('../controllers/UsuarioController');
 const walletController = require('../controllers/Walletcontroller');
+const transactionController = require('../controllers/TransactionController');
 
 const router = express.Router();
 
@@ -13,7 +14,6 @@ router.get("/", (req, res) => {
 /*
 **  RUTAS DE USUARIOS
 */
-
 
 router.get("/user", (req, res) => {
     usuarioController.list(req, res);
@@ -31,6 +31,7 @@ router.post("/user/update", (req, res) => {
 **  RUTAS DE WALLET
 */
 
+
 router.get("/wallet", (req, res) => {
     walletController.list(req, res);
 });
@@ -39,5 +40,29 @@ router.post("/wallet/create", (req, res) => {
     walletController.save(req, res);
 });
 
+router.get("/wallet/history/:id", (req, res) => {
+    walletController.listorial(req, res);
+});
+
+router.get("/wallet/:id", (req,res) => {
+    walletController.show(req, res);
+});
+
+
+/*
+** RUTAS DE TRANSACCIONES
+*/
+
+router.get("/transaction/:id", (req, res) => {
+    transactionController.show(req, res);
+})
+
+router.get("/transaction", (req, res) => {
+    transactionController.listAll(req, res);
+});
+
+router.post("/transaction/create", (req, res) => {
+    transactionController.save(req, res);
+});
 
 module.exports = router

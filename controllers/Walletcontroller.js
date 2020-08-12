@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Wallet = require('../models/Wallet');
 const Usuario = require('../models/Usuario');
-const wallet = require('../models/Wallet');
+
 
 const walletController = {};
 
@@ -17,17 +17,17 @@ walletController.list = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({
-            msg: "ERROR.",
+            msg: "ERROR at listing wallets.",
             body: {
                 error: err
             }
-        })
+        });
     }
 };
 
 walletController.show = async (req, res) => {
     try {
-        const wallet = await Wallet.findOne({_id : req.params.id}).lean();
+        const wallet = await Wallet.findOne({_id : req.params.id});
         console.log(wallet);
         res.json({
             msg: "wallet encontrada.",
@@ -48,7 +48,7 @@ walletController.show = async (req, res) => {
 
 walletController.save = async (req, res) => {
     try {
-        const user = await Usuario.findOne({_id : req.body._id}).lean();
+        const user = await Usuario.findOne({_id : req.body._id});
         user.wallet = new Wallet(req.body);
         user.wallet.usuario = user._id;
         user.wallet.save(
@@ -82,6 +82,26 @@ walletController.save = async (req, res) => {
     }
 };
 
-
+walletController.listorial = async (req, res) => {
+    try {
+        const wallet = await Wallet.findOne({_id: req.params.id});
+        console.log(wallet);
+        res.json({
+            msg: "Aqui tiene su historial.",
+            body: {
+                historial: wallet.historial
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            msg: "Error. historial no encontrado.",
+            body: {
+                id: req.param.id,
+                error: err
+            }
+        });
+    }
+}
 
 module.exports = walletController;

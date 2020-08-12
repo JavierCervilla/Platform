@@ -11,6 +11,7 @@ const usuarioController = {};
 **  correct -> {res: 200, usuarios: users}
 **  wrong   -> {res: 500, error: err}
 */
+
 usuarioController.list = async (req, res) => {
     try {
         const users = await Usuario.find();
@@ -85,7 +86,7 @@ usuarioController.save = async (req, res) => {
                 console.log("Usuario creado.");
                 return;
             }
-            );
+        );
         res.json({
             msg: "usuario creado correctamente.",
             body: {
@@ -104,7 +105,7 @@ usuarioController.save = async (req, res) => {
 };
 
 /*
-**  EDITAR USUARIO.
+**  ACTUALIZAR USUARIO.
 **  request.:
 **      -> datos_personales
 **      -> 
@@ -146,6 +147,11 @@ usuarioController.update = async (req, res) => {
     }
 };
 
+/*
+**  EDITAR USUARIO:
+**   -> devuelve el objeto usuario a editar.
+*/
+
 usuarioController.edit = async (req, res) => {
     try {
         const user = await Usuario.findOne({_id: req.params.id}, (err, user) => {
@@ -160,7 +166,10 @@ usuarioController.edit = async (req, res) => {
                 return;
             }
             res.json({
-                usuario: user 
+                msg: "usuario a editar",
+                body : {
+                    usuario: user 
+                }
             });
             return;
         });
