@@ -12,7 +12,19 @@ const Skills = new mongoose.Schema({
 
 /*
 **  SOFTSKILLS:
-**  
+**
+**  Adaptability 
+**  Communication 
+**  Creative thinking
+**  Dependability
+**  Work ethic 
+**  Teamwork
+**  Positivity 
+**  Time management 
+**  Motivation 
+**  Problem-solving 
+**  Critical thinking
+**  Conflict resolution
 */
 
 const SoftSkills = new mongoose.Schema({

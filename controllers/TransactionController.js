@@ -1,8 +1,5 @@
-const mongoose = require('mongoose');
 const Wallet = require('../models/Wallet');
-const Usuario = require('../models/Usuario');
 const Transaction = require('../models/Transaction');
-const { findOne, findOneAndUpdate } = require('../models/Usuario');
 
 const transactionController = {};
 
